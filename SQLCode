@@ -1,0 +1,95 @@
+--Total count of all declared disasters in the United States
+
+SELECT COUNT(disaster_number) AS Total_Declared_Disasters
+FROM [us_disaster_declarations];
+
+--Total disasters count in each year, ranging from 1953-2023
+
+SELECT fy_declared AS Year_of_Declared_Disaster, COUNT(*) AS TotalDisasters
+FROM [us_disaster_declarations]
+GROUP BY fy_declared
+ORDER BY fy_declared;
+
+--Top 10 years with highest declared disasters, listed highest to lowest
+
+SELECT TOP 10 fy_declared AS Year_of_Declared_Disaster, COUNT(*) AS TotalDisasters_Top_10
+FROM [us_disaster_declarations]
+GROUP BY fy_declared
+ORDER BY TotalDisasters_Top_10 DESC;
+
+--Total counts of each incident (disaster) type
+
+SELECT incident_type, COUNT(*) AS TotalCount_byType
+FROM [us_disaster_declarations]
+GROUP BY incident_type
+ORDER BY TotalCount_byType DESC;
+
+--Total disasters in each U.S. state, from highest to lowest disaster count
+
+SELECT state, COUNT(*) AS TotalDisasters_byState
+FROM [us_disaster_declarations]
+GROUP BY state
+ORDER BY TotalDisasters_byState DESC;
+
+--Top 10 states with highest disaster count
+
+SELECT TOP (10) state, COUNT(*) AS TotalDisasters_byState
+FROM [us_disaster_declarations]
+GROUP BY state
+ORDER BY TotalDisasters_byState DESC;
+
+--Total count of tornadoes
+
+SELECT incident_type, COUNT(*) AS Total_Tornadoes
+FROM [us_disaster_declarations]
+WHERE incident_type = 'Tornado'
+GROUP BY incident_type;
+
+--10 lowest disaster states
+
+SELECT TOP (10) state, COUNT(*) AS TotalDisasters_byState
+FROM [us_disaster_declarations]
+GROUP BY state
+ORDER BY TotalDisasters_byState ASC;
+
+--Total count of fires
+
+SELECT incident_type, COUNT(*) AS Total_Fires
+FROM [us_disaster_declarations]
+WHERE incident_type = 'Fire'
+GROUP BY incident_type;
+
+--Total count of hurricanes
+
+SELECT incident_type, COUNT(*) AS Total_Hurricanes
+FROM [us_disaster_declarations]
+WHERE incident_type = 'Hurricane'
+GROUP BY incident_type;
+
+--Total count of Public Assistance Programs declared for disasters
+
+SELECT pa_program_declared, COUNT(*) AS Public_Assistance_Programs_Declared
+FROM [us_disaster_declarations]
+WHERE pa_program_declared = '1'
+GROUP BY pa_program_declared;
+
+--Total count of disasters declared as being statewide
+
+SELECT designated_area, COUNT(*) AS Statewide_Declaration
+FROM [us_disaster_declarations]
+WHERE designated_area = 'Statewide'
+GROUP BY designated_area;
+
+--Total count of disasters declared as Statewide versus all other locations, such as countywide. 
+
+SELECT
+    CASE WHEN designated_area = 'Statewide' THEN 'Statewide' ELSE 'Other' END AS Statewide_VS_Other,
+    COUNT(*) AS Count_of_Declarations
+FROM [us_disaster_declarations]
+GROUP BY
+    CASE WHEN designated_area = 'Statewide' THEN 'Statewide' ELSE 'Other' END;
+
+
+
+
+
