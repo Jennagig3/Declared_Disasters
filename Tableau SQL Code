@@ -1,0 +1,74 @@
+--Total Declared Disasters
+SELECT COUNT(*) AS TotalDisasters
+FROM [us_disaster_declarations]
+
+--Total Distinct Declared Disasters (some disasters are listed as more than one county)
+SELECT COUNT(DISTINCT disaster_number) AS Total_Unique_Disasters
+FROM [us_disaster_declarations]
+
+--Total distinct declared disasters for each year
+SELECT
+    YEAR(declaration_date) AS Year,
+    COUNT(DISTINCT disaster_number) AS TotalDeclaredDisasters
+FROM [us_disaster_declarations]
+GROUP BY YEAR(declaration_date)
+ORDER BY Year;
+
+--Highest declared disaster year
+SELECT TOP 1
+    YEAR(declaration_date) AS Year,
+    COUNT(DISTINCT disaster_number) AS TotalDeclaredDisasters
+FROM [us_disaster_declarations]
+GROUP BY YEAR(declaration_date)
+ORDER BY TotalDeclaredDisasters DESC;
+
+--Top 5 highest declared disaster years
+SELECT TOP 5
+    YEAR(declaration_date) AS Year,
+    COUNT(DISTINCT disaster_number) AS TotalDeclaredDisasters
+FROM [us_disaster_declarations]
+GROUP BY YEAR(declaration_date)
+ORDER BY TotalDeclaredDisasters DESC;
+
+--Total disasters declared for each U.S. state
+SELECT
+    state,
+    COUNT(*) AS TotalDeclaredDisasters
+FROM [us_disaster_declarations]
+GROUP BY state
+ORDER BY TotalDeclaredDisasters DESC;
+
+--Total unique disasters declared for each U.S. state
+SELECT
+    state,
+    COUNT(DISTINCT disaster_number) AS TotalUniqueDeclaredDisasters
+FROM [us_disaster_declarations]
+GROUP BY state
+ORDER BY TotalUniqueDeclaredDisasters DESC;
+
+--Highest declared disaster state
+SELECT TOP 1
+    state,
+    COUNT(DISTINCT disaster_number) AS TotalUniqueDeclaredDisasters
+FROM [us_disaster_declarations]
+GROUP BY state
+ORDER BY TotalUniqueDeclaredDisasters DESC;
+
+--Most frequently declared disaster
+SELECT incident_type, COUNT(DISTINCT disaster_number) AS Unique_Disaster_Count
+FROM [us_disaster_declarations]
+GROUP BY incident_type
+ORDER BY Unique_Disaster_Count DESC;
+
+--Highest declared disaster incident
+SELECT TOP 1 incident_type, COUNT(DISTINCT disaster_number) AS Unique_Disaster_Count
+FROM [us_disaster_declarations]
+GROUP BY incident_type
+ORDER BY Unique_Disaster_Count DESC;
+
+
+
+
+
+
+
